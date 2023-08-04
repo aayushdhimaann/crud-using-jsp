@@ -1,0 +1,59 @@
+<%@page import="java.sql.*"%>
+<html>
+	<head>
+		<title></title>
+		<script src="https://kit.fontawesome.com/2c7f19a7aa.js" crossorigin="anonymous"></script>
+		
+	</head>
+	<body>
+		<button><a href="adddata.html">Add record</a></button>
+		<table style="display: block;margin:10% 25%;align-content: center;"> 
+		<% 
+		Class.forName("com.mysql.jdbc.Driver"); 
+		Connection con = DriverManager.getConnection("jdbc:mysql://localhost/data?user=root&password=");
+		PreparedStatement ps = con.prepareStatement("select * from employee");
+		ResultSet rs = ps.executeQuery(); 
+		%> 
+		<tr> 
+			<td colspan='9' style="background-color: black;text-align: center;color: white;">INFORMATION</td> 
+		</tr> 
+		<tr style="background-color: coral;"> 
+			<td>First name</td> 
+			<td>last name</td> 
+			<td>address</td>
+			<td>city</td> 
+			<td>state</td> 
+			<td>street</td>
+			<td>email</td> 
+			<td>phone</td>
+			<td colspan="2" align="center">Action</td>
+		</tr class="tr"> 
+		<% 
+		while(rs.next()){ 
+			String fname=rs.getString(1);
+			String lname = rs.getString(2); 
+			String address = rs.getString(3); 
+			String city=rs.getString(4);
+			String state=rs.getString(5);
+			String street=rs.getString(6);
+			String email=rs.getString(7);
+			String phone=rs.getString(8);
+		
+		%> 
+		<tr style="background-color: red;">
+			<td color = 'yellow'><%=fname%></td> 
+			<td color = 'yellow'><%=lname%></td> 
+			<td color = 'yellow'><%=address%></td>
+			<td color = 'yellow'><%=city%></td> 
+			<td color = 'yellow'><%=state%></td> 
+			<td color = 'yellow'><%=street%></td> 
+			<td color = 'yellow'><%=email%></td> 
+			<td color = 'yellow'><%=phone%></td> 
+			<td><a href=Delete.jsp?phone=<%=phone%>><i class="fa-solid fa-minus"></i></a><a href=Edit.jsp?phone=<%=phone%>><i class="fa-solid fa-pencil"></i></a></td>
+			
+		</tr> 
+		<%
+		}
+		%>
+	</body>
+</html>
